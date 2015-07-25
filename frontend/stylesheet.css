@@ -2,6 +2,6 @@
     text-align: center;
 }
 
-#login-popup{
-    align-items: center;
+.modal-dialog {
+    padding-top: 15%;
 }
