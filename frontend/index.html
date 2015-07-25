@@ -20,7 +20,7 @@
 <!--Main Login box on page loading-->
 <div id="login-popup">
     <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
+        <div id="login-dialog" class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
 
@@ -52,7 +52,7 @@
 
 <!--Popup window for the main tutorial for the game-->
 <div class="modal fade" id="howToPlayModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
+    <div id="help-dialog" class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
@@ -64,7 +64,6 @@
                 <i><b>The game is simple...</b></i>
                 <br>
                 Pick a unique pixel, each having it's own specialization
-
 
 
                 <div id="pixelinfo">
@@ -98,6 +97,14 @@
                             </td>
                             <td>
                                 Speed yourself up gaining 3x speed for 3 seconds (10 second cooldown)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="imgs/red.png">
+                            </td>
+                            <td>
+                                Passively 2x larger than all your friends.
                             </td>
                         </tr>
                     </table>
