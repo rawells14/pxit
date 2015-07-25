@@ -1,0 +1,9 @@
+Red: #F44336
+
+Blue: #3F51B5
+
+Yellow: #FFC107
+
+Green (Speed Demon): #4CAF50
+
+Black: #212121
