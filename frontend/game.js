@@ -23,6 +23,36 @@ window.onload = function () {
 
 };
 
+function Edge(x, y, length, isVert){
+    this.minx=x;
+    this.miny=y;
+    this.length=length;
+    this.isVertical = isVert;
+    this.collides = function(minx, miny, maxx, maxy){
+        if(this.isVertical){
+            if(this.minx<minx||this.minx>maxx){
+                return false;
+            }if((this.miny<=miny&&this.miny+this.length>=miny)||
+                (this.miny<=maxy&&this.miny+this.length>=maxy)||
+                (this.miny>=miny&&this.miny+this.length<=maxy)){
+                return true;
+            }
+        }else{
+            if(this.miny<miny||this.miny>maxy){
+                return false;
+            }if((this.minx<=minx&&this.minx+this.length>=minx)||
+                (this.minx<=maxx&&this.minx+this.length>=maxx)||
+                (this.minx>=minx&&this.minx+this.length<=maxx)){
+                return true;
+            }
+        }
+        return false;
+    }
+}
+
+//var e = new Edge(0, 0, 5, false);
+//console.log(e.collides(5,0,8,8));
+
 function Pixel(x, y, color) {
     this.x = x;
     this.y = y;
@@ -43,6 +73,17 @@ function Rectangle(x1, y1, x2, y2, color) {
         ctx.fillRect(this.minx * pixel_width, game_height - (this.maxy + 1) * pixel_width,
             (this.maxx - this.minx + 1) * pixel_width, (this.maxy - this.miny + 1) * pixel_width);
     }
+}
+
+function CollidableRectangle(x1, y1, x2, y2) {
+    minx = Math.min(x1, x2);
+    miny = Math.min(y1, y2);
+    maxx = Math.max(x1, x2);
+    maxy = Math.max(y1, y2);
+    this.top_edge = new Edge(minx, maxy, maxx-minx, false);
+    this.bottom_edge = new Edge(minx, miny, maxx-minx, false);
+    this.bottom_edge = new Edge(minx, miny, maxy-minx, true);
+    this.bottom_edge = new Edge(maxx, miny, maxy-minx, true);
 }
 
 function Player(x, y, color) {
@@ -124,9 +165,14 @@ var game_objects = {
         player
     ],
     collide: [
-        new Rectangle(0, 0, pixelsx, pixelsy / 2, "green")
+        new CollidableRectangle(0, 0, pixelsx, pixelsy / 2),
+        new CollidableRectangle(10, 40, 20, 45)
     ],
-    background: []
+    background: [
+        new Rectangle(0, 0, pixelsx, pixelsy / 2, "green"),
+        new Rectangle(10, 35, 20, 40, "blue")
+
+    ]
 };
 
 
@@ -156,12 +202,25 @@ function render(time) {
     }
     player.y+=player.y_velocity;
     player.x+=player.x_velocity;
+    for(var i=0; i<game_objects.collide.length; i++){
+        var colobj = game_objects.collide[i];
+        if(colobj.top_edge.collides(player.x, player.y, player.x+1, player.y+1)){
+            player.jumping=false;
+            player.y_velocity=0;
+            player.y=colobj.top_edge.miny+1;
+            continue;
+        }if(colobj.bottom_edge.collides(player.x, player.y, player.x+1, player.y+1)){
+            player.y_velocity=0;
+            player.y=colobj.bottom_edge.miny;
+            continue;
+        }
+    }
+
     //check collision
     ctx.moveTo(0, 0);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     game_objects.background.map(draw);
     game_objects.players.map(draw);
-    game_objects.collide.map(draw);
     anim_frame(render);
 }
 
