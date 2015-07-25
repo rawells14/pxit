@@ -1,3 +1,4 @@
-/**
- * Created by davis on 7/24/15.
- */
+
+var canvas = document.getElementById("game-canvas");
+var contex = canvas.getContext("2d");
+
