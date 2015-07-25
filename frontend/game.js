@@ -11,7 +11,18 @@ var pixel_width = 10;
 var pixelsx = game_width / pixel_width;
 var pixelsy = game_height / pixel_width;
 var player_speed = .5;
+var acceleration = -.1;
 
+
+window.onload = function () {
+    //$('#login-modal').modal({
+    //    backdrop: 'static',
+    //    keyboard: false
+    //});
+
+    anim_frame(render);
+
+};
 
 function Pixel(x, y, color) {
     this.x = x;
@@ -39,22 +50,12 @@ function Player(x, y, color) {
     this.x = x;
     this.y = y;
     this.color = color;
+    this.y_velocity=0;
+    this.jumping=false;
     this.draw = function () {
         drawPixel(this.x, this.y, this.color);
     };
 }
-
-var player = new Player(1, 31, "black");
-
-var game_objects = {
-    players: [
-        player
-    ],
-    collide: [
-        new Rectangle(0, 0, pixelsx, pixelsy / 2, "green")
-    ],
-    background: []
-};
 
 var keys_pressed = {};
 
@@ -116,15 +117,18 @@ window.addEventListener("keyup", function (event) {
     }
 });
 
-window.onload = function () {
-    $('#login-modal').modal({
-        backdrop: 'static',
-        keyboard: false
-    });
+var player = new Player(1, 31, "black");
 
-    anim_frame(render);
-
+var game_objects = {
+    players: [
+        player
+    ],
+    collide: [
+        new Rectangle(0, 0, pixelsx, pixelsy / 2, "green")
+    ],
+    background: []
 };
+
 
 function draw(obj) {
     obj.draw();
@@ -132,17 +136,25 @@ function draw(obj) {
 
 function render(time) {
     if (keys_pressed["up"]) {
-        player.y += player_speed;
+        if(!player.jumping) {
+            player.jumping = true;
+            player.y_velocity = 1;
+        }
     }
-    if (keys_pressed["down"]) {
-        player.y -= player_speed;
-    }
+    //if (keys_pressed["down"]) {
+    //    player.y -= player_speed;
+    //}
     if (keys_pressed["left"]) {
         player.x -= player_speed;
     }
     if (keys_pressed["right"]) {
         player.x += player_speed;
     }
+    if(player.jumping){
+        player.y+=player.y_velocity;
+        player.y_velocity+=acceleration;
+    }
+    //check collision
     ctx.moveTo(0, 0);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     game_objects.background.map(draw);
