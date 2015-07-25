@@ -10,7 +10,6 @@ var game_height = 600;
 var pixel_width = 10;
 var pixelsx = game_width / pixel_width;
 var pixelsy = game_height / pixel_width;
-var player_speed = .5;
 var acceleration = -.1;
 
 
@@ -51,6 +50,7 @@ function Player(x, y, color) {
     this.y = y;
     this.color = color;
     this.y_velocity=0;
+    this.x_velocity=0;
     this.jumping=false;
     this.draw = function () {
         drawPixel(this.x, this.y, this.color);
@@ -144,16 +144,18 @@ function render(time) {
     //if (keys_pressed["down"]) {
     //    player.y -= player_speed;
     //}
-    if (keys_pressed["left"]) {
-        player.x -= player_speed;
-    }
     if (keys_pressed["right"]) {
-        player.x += player_speed;
+        player.x_velocity = .5;
+    }else if (keys_pressed["left"]) {
+        player.x_velocity = -.5;
+    }else{
+        player.x_velocity=0;
     }
     if(player.jumping){
-        player.y+=player.y_velocity;
         player.y_velocity+=acceleration;
     }
+    player.y+=player.y_velocity;
+    player.x+=player.x_velocity;
     //check collision
     ctx.moveTo(0, 0);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
