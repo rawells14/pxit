@@ -20,8 +20,9 @@ var game_objects = [
 
 
 window.onload = function(){
-    //$('#login-modal').modal('show');
+    $('#login-modal').modal('show');
     anim_frame(render);
+
 };
 
 function render(time){
