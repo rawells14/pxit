@@ -11,9 +11,10 @@
 </head>
 <body>
 
-
-<canvas id="game-canvas" width="800" height="600" style="border: solid black; background-color: darkslategrey">
-</canvas>
+<div id="canvas-container">
+    <canvas id="game-canvas" width="800" height="600" style="border: solid black; background-color: darkslategrey">
+    </canvas>
+</div>
 
 <div id="login-popup">
     <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -27,7 +28,8 @@
                 <div class="modal-body">
                     <div class="input-group">
                         <span class="input-group-addon" id="sizing-addon2">Username</span>
-                        <input type="text" class="form-control" placeholder="Eg: JohnSmith" aria-describedby="sizing-addon2">
+                        <input type="text" class="form-control" placeholder="Eg: JohnSmith"
+                               aria-describedby="sizing-addon2">
                     </div>
 
                 </div>

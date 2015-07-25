@@ -5,3 +5,12 @@
 .modal-dialog {
     padding-top: 15%;
 }
+
+#canvas-container {
+    width: 100%;
+    text-align: center;
+}
+
+canvas {
+    display: inline;
+}
