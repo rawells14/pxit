@@ -1,0 +1,11 @@
+Ideas: 
+
+Blue - Freeze: Freeze in midair allowing others to walk across
+
+Yellow - Expansion: Expand 3x normal size horizontally making a "bridge"
+
+Red - Passively a 2x2 Pixel
+
+Green - Speed Demon: Give 3x speed for 5 seconds
+
+Black - Bomb: Place a harmless detonation that when stepped on, propels the pixel 6x normal jump height

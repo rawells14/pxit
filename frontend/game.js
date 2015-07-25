@@ -10,14 +10,13 @@ var game_height = 600;
 var pixel_width = 10;
 var pixelsx = game_width / pixel_width;
 var pixelsy = game_height / pixel_width;
-var player_speed=.5;
-
+var player_speed = .5;
 
 
 function Pixel(x, y, color) {
     this.x = x;
     this.y = y;
-    this.color=color;
+    this.color = color;
     this.draw = function () {
         drawPixel(this.x, this.y, this.color);
     }
@@ -30,17 +29,17 @@ function Rectangle(x1, y1, x2, y2, color) {
     this.maxy = Math.max(y1, y2);
     this.color = color;
     this.draw = function () {
-        ctx.fillStyle=this.color;
+        ctx.fillStyle = this.color;
         ctx.fillRect(this.minx * pixel_width, game_height - (this.maxy + 1) * pixel_width,
-            (this.maxx - this.minx + 1) * pixel_width,(this.maxy - this.miny + 1) * pixel_width);
+            (this.maxx - this.minx + 1) * pixel_width, (this.maxy - this.miny + 1) * pixel_width);
     }
 }
 
-function Player(x, y, color){
-    this.x=x;
-    this.y=y;
-    this.color=color;
-    this.draw = function(){
+function Player(x, y, color) {
+    this.x = x;
+    this.y = y;
+    this.color = color;
+    this.draw = function () {
         drawPixel(this.x, this.y, this.color);
     };
 }
@@ -48,81 +47,80 @@ function Player(x, y, color){
 var player = new Player(1, 31, "black");
 
 var game_objects = {
-    players :[
+    players: [
         player
     ],
-    collide :[
-        new Rectangle(0, 0, pixelsx, pixelsy/2, "green")
+    collide: [
+        new Rectangle(0, 0, pixelsx, pixelsy / 2, "green")
     ],
     background: []
 };
 
-var keys_pressed = {
-};
+var keys_pressed = {};
 
-window.addEventListener("keydown", function(event){
-    switch(event.keyCode){
+window.addEventListener("keydown", function (event) {
+    switch (event.keyCode) {
         case 37: // left arrow
-            keys_pressed["left"]=true;
+            keys_pressed["left"] = true;
             break;
         case 38: // up arrow
-            keys_pressed["up"]=true;
+            keys_pressed["up"] = true;
             break;
         case 39: // right arrow
-            keys_pressed["right"]=true;
+            keys_pressed["right"] = true;
             break;
         case 40: // down arrow
-            keys_pressed["down"]=true;
+            keys_pressed["down"] = true;
             break;
         case 65: // left a
-            keys_pressed["left"]=true;
+            keys_pressed["left"] = true;
             break;
         case 87: // up w
-            keys_pressed["up"]=true;
+            keys_pressed["up"] = true;
             break;
         case 68: // right d
-            keys_pressed["right"]=true;
+            keys_pressed["right"] = true;
             break;
         case 83: // down s
-            keys_pressed["down"]=true;
+            keys_pressed["down"] = true;
             break;
     }
 });
 
-window.addEventListener("keyup", function(event){
-    switch(event.keyCode){
+window.addEventListener("keyup", function (event) {
+    switch (event.keyCode) {
         case 37: // left arrow
-            keys_pressed["left"]=false;
+            keys_pressed["left"] = false;
             break;
         case 38: // up arrow
-            keys_pressed["up"]=false;
+            keys_pressed["up"] = false;
             break;
         case 39: // right arrow
-            keys_pressed["right"]=false;
+            keys_pressed["right"] = false;
             break;
         case 40: // down arrow
-            keys_pressed["down"]=false;
+            keys_pressed["down"] = false;
             break;
         case 65: // left a
-            keys_pressed["left"]=false;
+            keys_pressed["left"] = false;
             break;
         case 87: // up w
-            keys_pressed["up"]=false;
+            keys_pressed["up"] = false;
             break;
         case 68: // right d
-            keys_pressed["right"]=false;
+            keys_pressed["right"] = false;
             break;
         case 83: // down s
-            keys_pressed["down"]=false;
+            keys_pressed["down"] = false;
             break;
     }
 });
 
 window.onload = function () {
-    //$('#login-modal').modal({
-    //    backdrop: 'static',
-    //    keyboard: false
-    //});
+    $('#login-modal').modal({
+        backdrop: 'static',
+        keyboard: false
+    });
 
     anim_frame(render);
 
@@ -133,14 +131,17 @@ function draw(obj) {
 }
 
 function render(time) {
-    if(keys_pressed["up"]){
-        player.y+=player_speed;
-    }if(keys_pressed["down"]){
-        player.y-=player_speed;
-    }if(keys_pressed["left"]){
-        player.x-=player_speed;
-    }if(keys_pressed["right"]){
-        player.x+=player_speed;
+    if (keys_pressed["up"]) {
+        player.y += player_speed;
+    }
+    if (keys_pressed["down"]) {
+        player.y -= player_speed;
+    }
+    if (keys_pressed["left"]) {
+        player.x -= player_speed;
+    }
+    if (keys_pressed["right"]) {
+        player.x += player_speed;
     }
     ctx.moveTo(0, 0);
     ctx.clearRect(0, 0, canvas.width, canvas.height);

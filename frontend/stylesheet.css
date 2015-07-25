@@ -14,10 +14,7 @@
 canvas {
     display: inline;
 }
-.ui-dialog-titlebar-close{
-    display: none;
-}
 
-.close{
-    display: none;
+#how-to-play-button {
+    float: left;
 }
