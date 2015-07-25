@@ -30,11 +30,22 @@ function Rectangle(x1, y1, x2, y2, color) {
     }
 }
 
+function Player(x, y, color){
+    this.x=x;
+    this.y=y;
+    this.color=color;
+    this.draw = function(){
+        drawPixel(x, y, color);
+    };
+}
+
 
 var game_objects = {
-    players: [],
-    collide: [
-        new Rectangle(0, 0, pixelsx, pixelsy / 2, "green")
+    players :[
+        new Player(1, 31, "black")
+    ],
+    collide :[
+        new Rectangle(0, 0, pixelsx, pixelsy/2, "green")
     ],
     background: []
 };
@@ -45,7 +56,6 @@ window.onload = function () {
         backdrop: 'static',
         keyboard: false
     });
-
 
     anim_frame(render);
 
