@@ -11,7 +11,7 @@ var ctx = canvas.getContext("2d");
 window.onload = function(){
     console.log("asdf");
     anim_frame(render);
-
+    $('#login-modal').modal('show');
 };
 
 function render(){
