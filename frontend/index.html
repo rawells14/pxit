@@ -16,6 +16,8 @@
     </canvas>
 </div>
 
+
+<!--Main Login box on page loading-->
 <div id="login-popup">
     <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
@@ -27,13 +29,14 @@
                 <div class="modal-body">
                     <div class="input-group">
                         <span class="input-group-addon" id="sizing-addon2">Username</span>
-                        <input type="text" class="form-control" placeholder="Eg: JohnSmith"
+                        <!--Input box for username when signing in, needs validation and sanitation atm-->
+                        <input id="username" type="text" class="form-control" placeholder="Eg: JohnSmith"
                                aria-describedby="sizing-addon2">
                     </div>
 
                 </div>
                 <div class="modal-footer center">
-                    <button id="howToPlayButton" type="button" class="btn" data-toggle="modal"
+                    <button id="howToPlayButton" type="button" class="btn btn-yellow" data-toggle="modal"
                             data-target="#howToPlayModal">How to play <span
                             class="glyphicon glyphicon-question-sign"
                             aria-hidden="true"></span></button>
@@ -47,6 +50,7 @@
     </div>
 </div>
 
+<!--Popup window for the main tutorial for the game-->
 <div class="modal fade" id="howToPlayModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -56,8 +60,48 @@
                 <h4 class="center modal-title">How do I play?</h4>
             </div>
             <div class="modal-body center">
-                <i><b>The game is simple...</b></i>
 
+                <i><b>The game is simple...</b></i>
+                <br>
+                Pick a unique pixel, each having it's own specialization
+
+
+
+                <div id="pixelinfo">
+                    <table class="table">
+                        <div class="center">
+                            <tr>
+                                <th>Pixel</th>
+                                <th>Specialty</th>
+                            </tr>
+                        </div>
+                        <tr>
+                            <td>
+                                <img src="imgs/yellow.png">
+                            </td>
+                            <td>
+                                Expand to 3x your normal size for 10 seconds
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="imgs/blue.png">
+                            </td>
+                            <td>
+                                Freeze in Midair allowing your friends to walk over you for 5 seconds (15 second
+                                cooldown)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="imgs/green.png">
+                            </td>
+                            <td>
+                                Speed yourself up gaining 3x speed for 3 seconds (10 second cooldown)
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">I'm Ready!</button>
@@ -66,10 +110,10 @@
         </div>
     </div>
 </div>
-
-
 <script src="game.js"></script>
-
+<div id="stats">
+    Current Players:
+</div>
 
 </body>
 </html>

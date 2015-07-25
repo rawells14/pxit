@@ -15,6 +15,26 @@ canvas {
     display: inline;
 }
 
+.btn-success {
+    color: white;
+    background-color: #4CAF50;
+}
+
+.btn-yellow {
+    color: white !important;
+    background-color: #FFC107;
+}
+
+.btn-yellow:hover {
+    background-color: #FFA000;
+
+}
+
 #howToPlayButton {
     float: left;
+}
+
+#pixelinfo {
+    text-align: left !important;
+    padding-top: 5%;
 }
