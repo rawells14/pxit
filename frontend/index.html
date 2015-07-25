@@ -33,9 +33,10 @@
 
                 </div>
                 <div class="modal-footer center">
-                    <button id="howToPlayButton" type="button" class="btn">How to play <span
+                    <button id="howToPlayButton" type="button" class="btn" data-toggle="modal"
+                            data-target="#howToPlayModal">How to play <span
                             class="glyphicon glyphicon-question-sign"
-                            aria-hidden="true" data-toggledata-target="#howToPlayModal"></span></button>
+                            aria-hidden="true"></span></button>
 
                     <button type="button" class="btn btn-success" data-dismiss="modal">Enter <span
                             class="glyphicon glyphicon-arrow-right"
@@ -46,11 +47,21 @@
     </div>
 </div>
 
-<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog"
-     aria-labelledby="mySmallModalLabel">
-    <div id="how-to-play-modal" class="modal-dialog modal-sm">
+<div class="modal fade" id="howToPlayModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <i>The game is simple...</i>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">How it works</h4>
+            </div>
+            <div class="modal-body center">
+                <i>The game is simple...</i>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">I'm Ready!</button>
+
+            </div>
         </div>
     </div>
 </div>
