@@ -10,7 +10,7 @@ var game_height = 600;
 var pixel_width = 10;
 var pixelsx = game_width / pixel_width;
 var pixelsy = game_height / pixel_width;
-var acceleration = -.1;
+var acceleration = -.05;
 
 
 window.onload = function () {
@@ -78,15 +78,17 @@ function Rectangle(x1, y1, x2, y2, color) {
 function CollidableRectangle(x1, y1, x2, y2) {
     minx = Math.min(x1, x2);
     miny = Math.min(y1, y2);
-    maxx = Math.max(x1, x2);
-    maxy = Math.max(y1, y2);
+    maxx = Math.max(x1, x2)+1;
+    maxy = Math.max(y1, y2)+1;
     this.top_edge = new Edge(minx, maxy, maxx-minx, false);
     this.bottom_edge = new Edge(minx, miny, maxx-minx, false);
-    this.bottom_edge = new Edge(minx, miny, maxy-minx, true);
-    this.bottom_edge = new Edge(maxx, miny, maxy-minx, true);
+    this.left_edge = new Edge(minx, miny, maxy-minx, true);
+    this.right_edge = new Edge(maxx, miny, maxy-minx, true);
 }
 
-function Player(x, y, color) {
+function Player(width, height, x, y, color) {
+    this.width=width;
+    this.height=height;
     this.x = x;
     this.y = y;
     this.color = color;
@@ -94,7 +96,8 @@ function Player(x, y, color) {
     this.x_velocity=0;
     this.jumping=false;
     this.draw = function () {
-        drawPixel(this.x, this.y, this.color);
+        ctx.fillStyle = this.color;
+        ctx.fillRect(this.x * pixel_width, game_height - (this.y + this.height) * pixel_width, this.width*pixel_width, this.height*pixel_width);
     };
 }
 
@@ -158,19 +161,19 @@ window.addEventListener("keyup", function (event) {
     }
 });
 
-var player = new Player(1, 31, "black");
+var player = new Player(1, 1, 40, 44, "black");
 
 var game_objects = {
     players: [
         player
     ],
     collide: [
-        new CollidableRectangle(0, 0, pixelsx, pixelsy / 2),
-        new CollidableRectangle(10, 40, 20, 45)
+        new CollidableRectangle(10, 0, pixelsx-10, pixelsy / 2),
+        new CollidableRectangle(20, 35, 30, 40)
     ],
     background: [
-        new Rectangle(0, 0, pixelsx, pixelsy / 2, "green"),
-        new Rectangle(10, 35, 20, 40, "blue")
+        new Rectangle(10, 0, pixelsx-10, pixelsy / 2, "green"),
+        new Rectangle(20, 35, 30, 40, "blue")
 
     ]
 };
@@ -197,22 +200,24 @@ function render(time) {
     }else{
         player.x_velocity=0;
     }
-    if(player.jumping){
-        player.y_velocity+=acceleration;
-    }
+    player.y_velocity+=acceleration;
     player.y+=player.y_velocity;
     player.x+=player.x_velocity;
     for(var i=0; i<game_objects.collide.length; i++){
         var colobj = game_objects.collide[i];
-        if(colobj.top_edge.collides(player.x, player.y, player.x+1, player.y+1)){
+        if(colobj.top_edge.collides(player.x, player.y, player.x+player.width, player.y+player.height)){
             player.jumping=false;
             player.y_velocity=0;
-            player.y=colobj.top_edge.miny+1;
+            player.y=colobj.top_edge.miny;
             continue;
-        }if(colobj.bottom_edge.collides(player.x, player.y, player.x+1, player.y+1)){
-            player.y_velocity=0;
-            player.y=colobj.bottom_edge.miny;
+        }if(colobj.left_edge.collides(player.x, player.y, player.x+player.width, player.y+player.height)){
+            player.x=colobj.left_edge.minx-player.width;
             continue;
+        }if(colobj.right_edge.collides(player.x, player.y, player.x+player.width, player.y+player.height)){
+            player.x=colobj.right_edge.minx;
+            continue;
+        }if(colobj.bottom_edge.collides(player.x, player.y, player.x+player.width, player.y+player.height)){
+            player.y=colobj.bottom_edge.miny-player.height;
         }
     }
 
